@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     train_pairs = []
     for i in range(len(train_src)):
-    train_pairs.append((train_src[i],train_tgt[i]))
+        train_pairs.append((train_src[i],train_tgt[i]))
 
     tokenizer_src = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
         (s for s, t in train_pairs), target_vocab_size=2**13)
