@@ -60,7 +60,7 @@ if __name__ == "__main__":
                       (src,tgt,context)')
     parser.add_argument('-s', '--src', help='Source language code')
     parser.add_argument('-t', '--tgt', help='Target language code')
-    parser.add_argument('-checkpoints', '--checkpoints', help='Path where checkpoints are stored')
+    parser.add_argument('-checkpoint', '--checkpoint', help='Path where checkpoints are stored')
     parser.add_argument('-c', '--context', help='Activate context-aware\
                          mechanisms', action="store_true")
     parser.add_argument('-l', '--layers', help='Number of stacks of layers in\
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     path = vars['path']
     src = vars['src']
     tgt = vars['tgt']
-    checkpoint_path = vars['checkpoints']
+    checkpoint_path = vars['checkpoint']
     num_layers = vars['layers']
     d_model = vars['dimension']
     dff = vars['inner_dim']
