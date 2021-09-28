@@ -1,4 +1,6 @@
 # Context-Aware-MT-Multiencoder
+Code developed in the master's thesis: https://riunet.upv.es/handle/10251/172540.
+
 **1- Create a new virtual environment in python and activate it**
 
 python3.7 -m venv venvContext
