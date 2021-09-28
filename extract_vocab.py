@@ -32,9 +32,14 @@ if __name__ == "__main__":
     train_pairs = []
     for i in range(len(train_src)):
         train_pairs.append((train_src[i],train_tgt[i]))
+    
+    print("Creating Subword text encoder for source language")
 
     tokenizer_src = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
         (s for s, t in train_pairs), target_vocab_size=2**13)
+
+    print("Creating Subword text encoder for target language")
+
 
     tokenizer_tgt = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
         (t for s, t in train_pairs), target_vocab_size=2**13)

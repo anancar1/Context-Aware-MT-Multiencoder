@@ -1,6 +1,10 @@
 from model import CustomSchedule, TransformerContext, create_masks
 import tensorflow as tf
 import tensorflow_datasets as tfds
+import argparse
+import time
+import os
+
 
 def encode_source(lang1):
   lang1 = [tokenizer_src.vocab_size] + tokenizer_src.encode(
@@ -72,7 +76,7 @@ if __name__ == "__main__":
                          mechanisms', action="store_true")
     parser.add_argument('-l', '--layers', help='Number of stacks of layers in\
                          encoder/decoder', default=3, type=int)
-    parser.add_argument('-h', '--heads', help='Number of attention heads',\
+    parser.add_argument('-heads', '--heads', help='Number of attention heads',\
                         default=8, type=int)
     parser.add_argument('-d_model', '--dimension', help='Dim of the outputs\
                         (d_model)', default=512, type=int)
@@ -109,7 +113,7 @@ if __name__ == "__main__":
         EPOCHS = 5
     else:
         BATCH_SIZE = 200
-        EPOCHS = 30
+        EPOCHS = 2
 
     train_data_src = tf.data.TextLineDataset(f'{path}/train.{src}')
     train_data_tgt = tf.data.TextLineDataset(f'{path}/train.{tgt}')
