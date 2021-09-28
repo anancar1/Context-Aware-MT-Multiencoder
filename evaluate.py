@@ -129,7 +129,7 @@ if __name__ == "__main__":
     if activate_context:
       ckpt.restore(ckpt_manager.latest_checkpoint)
     else:
-      ckpt.restore(ckpt_manager.latest_checkpoint)[-2]
+      ckpt.restore(ckpt_manager.checkpoints[-2])
 
 
     hyp_en= []
