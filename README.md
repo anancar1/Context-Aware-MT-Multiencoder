@@ -22,7 +22,7 @@ python extract_vocab.py -p ./data/ -s es -t en
 
 **4- Train the sentece-level Transformer (30 epochs)**
 
-python train.py -p ./data/ -s es -t en -checkpoint ./chekcpoints/ 
+python train.py -p ./data/ -s es -t en -checkpoint ./checkpoints/ 
 
 **5- Train the multiencoder context aware Trasnformer(5 epochs)**
 
