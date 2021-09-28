@@ -30,8 +30,8 @@ python train.py -p ./data/ -s es -t en -checkpoint ./checkpoints/ --context
 
 **6- Evaluate sentence-level Transformer**
 
-python evaluate.py -p ./data/ -s es -t en -checkpoints ./checkpoints/
+python evaluate.py -p ./data/ -s es -t en -checkpoint ./checkpoints/
 
 **7- Evaluate context-aware Transformer**
 
-python evaluate.py -p ./data/ -s es -t en -checkpoints ./checkpoints/ --context
+python evaluate.py -p ./data/ -s es -t en -checkpoint ./checkpoints/ --context
