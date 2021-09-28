@@ -113,7 +113,7 @@ if __name__ == "__main__":
         EPOCHS = 5
     else:
         BATCH_SIZE = 200
-        EPOCHS = 2
+        EPOCHS = 30
 
     train_data_src = tf.data.TextLineDataset(f'{path}/train.{src}')
     train_data_tgt = tf.data.TextLineDataset(f'{path}/train.{tgt}')
@@ -178,7 +178,7 @@ if __name__ == "__main__":
                 print ('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(
                 epoch + 1, batch, train_loss.result(), train_accuracy.result()))
             
-        if (epoch + 1) % 5 == 0:
+        if (epoch + 1) % 1 == 0:
             ckpt_save_path = ckpt_manager.save()
             print ('Saving checkpoint for epoch {} at {}'.format(epoch+1,
                                                                 ckpt_save_path))

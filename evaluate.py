@@ -1,7 +1,7 @@
 import argparse
 import time
 from bleu import list_bleu
-from model import TransformerContext, create_masks
+from model import TransformerContext, create_masks, CustomSchedule
 import tensorflow as tf
 import tensorflow_datasets as tfds
 
@@ -60,12 +60,12 @@ if __name__ == "__main__":
                       (src,tgt,context)')
     parser.add_argument('-s', '--src', help='Source language code')
     parser.add_argument('-t', '--tgt', help='Target language code')
-    parser.add_argument('-model_path', '--model', help='Path of the model to use for testing (/.../model_x.pt)')
+    parser.add_argument('-checkpoints', '--checkpoints', help='Path where checkpoints are stored')
     parser.add_argument('-c', '--context', help='Activate context-aware\
                          mechanisms', action="store_true")
     parser.add_argument('-l', '--layers', help='Number of stacks of layers in\
                          encoder/decoder', default=3, type=int)
-    parser.add_argument('-h', '--heads', help='Number of attention heads',\
+    parser.add_argument('-he', '--heads', help='Number of attention heads',\
                         default=8, type=int)
     parser.add_argument('-d_model', '--dimension', help='Dim of the outputs\
                         (d_model)', default=512, type=int)
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     path = vars['path']
     src = vars['src']
     tgt = vars['tgt']
-    model_path = vars['model']
+    checkpoint_path = vars['checkpoints']
     num_layers = vars['layers']
     d_model = vars['dimension']
     dff = vars['inner_dim']
@@ -118,7 +118,19 @@ if __name__ == "__main__":
                     pe_input=input_vocab_size, 
                     pe_target=target_vocab_size,
                     rate=dropout_rate, activate_context=activate_context)
-    transformer.load_weights(model_path)
+    learning_rate = CustomSchedule(d_model)
+
+    optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98, 
+                                     epsilon=1e-9)
+    ckpt = tf.train.Checkpoint(transformer=transformer,
+                           optimizer=optimizer)
+    ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=5)
+    
+    if activate_context:
+      ckpt.restore(ckpt_manager.latest_checkpoint)
+    else:
+      ckpt.restore(ckpt_manager.latest_checkpoint)[-2]
+
 
     hyp_en= []
     for i in range(len(test_src)):
