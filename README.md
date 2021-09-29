@@ -24,7 +24,7 @@ python extract_vocab.py -p ./data/ -s es -t en
 
 python train.py -p ./data/ -s es -t en -checkpoint ./checkpoints/ 
 
-**5- Train the multiencoder context aware Trasnformer(5 epochs)**
+**5- Train the multiencoder context aware Trasnformer (5 epochs)**
 
 python train.py -p ./data/ -s es -t en -checkpoint ./checkpoints/ --context
 
